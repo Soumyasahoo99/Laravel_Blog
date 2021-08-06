@@ -82,13 +82,13 @@
                                                 <input type="file" name="postimage" class="form-control" id="postimage" aria-describedby="emailHelp">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="posttag" class="form-label">Tags:</label>
+                                                <label for="tag_id" class="form-label">Tags:</label>
                                                 @foreach($tags as $tag)
                                                 <div class="form-check">
-                                              
-                                                    <input class="form-check-input" name="posttag" type="checkbox" value="{{$tag->id}}" id="flexCheckDefault">
+
+                                                    <input class="form-check-input" name="tag_id[]" type="checkbox" value="{{$tag->id}}" id="flexCheckDefault">
                                                     <label class="form-check-label" for="flexCheckDefault">
-                                                    {{$tag->tagname}}
+                                                        {{$tag->tagname}}
                                                     </label>
                                                 </div>
 
@@ -119,19 +119,33 @@
                         </div>
 
                     </div>
-
                     <div class="card-body">
+                        <div class="card" style="width: 500px;">
+                            @foreach($posts as $post)
+                            <div class="text-center">
+                                <a href="postview/{{$post->id}}">  <img src="{{asset('uploads/post/'.$post->postimage)}}" class="card-img-top" alt="..."> </a>
+                              
+                            </div>
+                            <div class="card-body">
+                      <a href="">{{$post->posttitle." ".'posted by'."   ".$post->user->name.''}}</a>
+                            
+                              <a href="">{{$post->created_at}}</a>   
+                            </div>
+                            @endforeach
+                        </div>
+
+
+
 
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('.js-example-basic-multiple').select2();
-    });
-</script>
-@endsection
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
+    @endsection

@@ -21,20 +21,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/home',[blogcontroller::class,'index']);
-// // Route::get('post',[postController::class,'index']);
-// Route::get('add-post',[postController::class,'create']);
-// Route::post('add-post',[postController::class,'store']);
-// Route::get('show-post',[postController::class,'show']);
-
-
-
-
-
-
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('tag',[TagController::class,'storetag'])->name('tagss');
 Route::post('postssss',[HomeController::class,'savepost'])->name('postssss');
+Route::get('postview/{id}',[postController::class,'viewpost'])->name('postview');
+
+
 

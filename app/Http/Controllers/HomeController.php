@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\tag;
-use App\Models\post;
+use App\Models\Post;
 use App\Models\User;
 use App\Models\comment;
 use Illuminate\Support\Facades\Auth;
@@ -28,30 +28,46 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $tags=tag::all();
-        return view('home',['tags'=>$tags]);
-    }
 
+        $tags=tag::all();
+        $posts=Post::all();
+        return view('home',compact('tags','posts'));
+     
+    }
+           
 
     public function savepost(Request $request)
     {
-        $post = new post;
-        $post->users_id=Auth::user()->id;
-        $post->tag_id=0;
-        $post->comment_id=0;
-        $post->posttitle=$request->posttitle;
-        $post->postdescription=$request->postdescription;
-        
-        $post->posttag=implode(" ",$request->posttag);
         if($request->hasFile('postimage')){
             $file=$request->file('postimage');
-            $extension=$file->getClientOriginalExtension();
-            $filename=time().".".$extension;
+            $filename=$request->file('postimage')->hashName();
             $file->move('uploads/post/',$filename);
-            $post->postimage=$filename;
+            // $post->postimage=$filename;
         }
-        $post->save();
+       Post::create([
+           'posttitle'=>$request->posttitle,
+           'postdescription'=>$request->postdescription,
+           'tag_id'=>implode(" ",$request->tag_id),
+           'postimage'=>$filename,
+           'users_id'=>Auth::user()->id,
+           'comment_id'=>0
+        
+       ]);
+
         return redirect("home");
 
     }
-}
+
+
+    public function viewpost()
+    {
+        $posts=Post::all();
+        return view('home',compact('posts'));
+     
+    }
+        
+
+
+
+
+        }
