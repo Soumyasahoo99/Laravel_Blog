@@ -6,6 +6,7 @@ use App\Http\Controllers\postController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\commentcontroller;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,6 +27,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::post('tag',[TagController::class,'storetag'])->name('tagss');
 Route::post('postssss',[HomeController::class,'savepost'])->name('postssss');
 Route::get('postview/{id}',[postController::class,'viewpost'])->name('postview');
+Route::post('/comment/{id}',[commentcontroller::class,'storecomment'])->name('comment');
+Route::get('/tagdetaiils/{id}',[postController::class,'viewtag'])->name('postview');
+
+
+
 
 
 

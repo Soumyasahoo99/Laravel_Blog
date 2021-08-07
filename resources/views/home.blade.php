@@ -45,7 +45,7 @@
                         <table>
                             @foreach($tags as $tag)
                             <tr>
-                                <td>{{$tag->tagname}}</td>
+                               <a href="/tagdetaiils/{{$tag->id}}">{{$tag->tagname}}</a> <br>
 
                             </tr>
                             @endforeach
@@ -133,19 +133,11 @@
                             </div>
                             @endforeach
                         </div>
-
-
-
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.js-example-basic-multiple').select2();
-        });
-    </script>
+
+
     @endsection
