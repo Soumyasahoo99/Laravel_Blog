@@ -20,6 +20,7 @@
                                         <form method="post" action="{{ route('tagss') }}" enctype="multipart/form-data">
                                             @csrf
                                             <select name="tagsname" class="form-select" aria-label="Default select example">
+                                        
                                                 <option value="Technology">Technology</option>
                                                 <option value="Web Dev">Web Dev</option>
                                                 <option value="Media">Media</option>
@@ -43,6 +44,9 @@
 
                     <div class="card-body">
                         <table>
+                            <tr>
+                               <a href="/home">AllPost</a> <br>
+                            </tr>
                             @foreach($tags as $tag)
                             <tr>
                                <a href="/tagdetaiils/{{$tag->id}}">{{$tag->tagname}}</a> <br>
