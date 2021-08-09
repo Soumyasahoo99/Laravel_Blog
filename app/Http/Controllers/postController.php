@@ -14,9 +14,15 @@ class postController extends Controller
         $tag_details=Post::where('tag_id',$id)->get();
         $data = Post::where('id',$id)->first();
         $tag_name=explode(" ",$data->tag_id);
+        $arr=array();
+        foreach($tag_name as $tagname){
+             $arr[]=tag::find($tagname);
+        }
+        // return dd($arr);
         $comment=comment::where('postid',$id)->get();
-        return view('postview', compact('data','comment','tag_name','tag_details'));
+        return view('postview', compact('data','comment','tag_name','tag_details','arr'));
     }
+
 
     public function viewtag($id)
     {

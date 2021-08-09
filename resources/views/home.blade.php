@@ -1,13 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .card {
+        padding-left: 20px;
+        padding-right: 20px;
+        box-shadow: 0 0px 20px 0 rgba(0, 0, 0, 0.2);
+        background-color: rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+    }
+</style>
 <div class="container">
     <div class="container px-4">
         <div class="row gx-5">
             <div class="col">
                 <div class="card">
-                    <div class="card-header">Tags
-
+                    <div class="card-header bg-secondary ">Tags
                         <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#tagModal" style="float: right;">Add Tag</button>
                         <div class="modal fade" id="tagModal" tabindex="-1" aria-labelledby="tagModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
@@ -20,7 +28,7 @@
                                         <form method="post" action="{{ route('tagss') }}" enctype="multipart/form-data">
                                             @csrf
                                             <select name="tagsname" class="form-select" aria-label="Default select example">
-                                        
+
                                                 <option value="Technology">Technology</option>
                                                 <option value="Web Dev">Web Dev</option>
                                                 <option value="Media">Media</option>
@@ -30,36 +38,32 @@
                                                 <option value="Weather">Weather</option>
                                             </select>
 
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save Post</button>
-                                    </div>
-                                    </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save Post</button>
+                                            </div>
+                                        </form>
                                 </div>
                             </div>
                         </div>
 
                     </div>
 
-                    <div class="card-body">
-                        <table>
-                            <tr>
-                               <a href="/home">AllPost</a> <br>
-                            </tr>
+                    <div class="card-body ">
+                        <ul class="list-group ">
                             @foreach($tags as $tag)
-                            <tr>
-                               <a href="/tagdetaiils/{{$tag->id}}">{{$tag->tagname}}</a> <br>
-
-                            </tr>
+                            <li class="list-group-item bg-dark"> <a href="/tagdetaiils/{{$tag->id}}" class="text-white">{{$tag->tagname}}</a> <br></li>
                             @endforeach
-                        </table>
+                        </ul>
+
+
                     </div>
                 </div>
             </div>
             <div class="col">
-                <div class="card">
-                    <div class="card-header">Posts
+                <div class="card style=width: 40rem">
+                    <div class="card-header bg-secondary">Posts
 
                         <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#Modalpost" style="float: right;">Add Post</button>
                         <div class="modal fade" id="Modalpost" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
@@ -123,23 +127,28 @@
                         </div>
 
                     </div>
-                    <div class="card-body">
-                        <div class="card" style="width: 500px;">
+                    <div class="style= width: 500px; height:500px">
+                        <div class="card-body bg-dark ">
                             @foreach($posts as $post)
                             <div class="text-center">
-                                <a href="postview/{{$post->id}}">  <img src="{{asset('uploads/post/'.$post->postimage)}}" class="card-img-top" alt="..."> </a>
-                              
+                                <a href="postview/{{$post->id}}"> <img src="{{asset('uploads/post/'.$post->postimage)}}" class="card-img-top" alt="..."> </a>
+                                <a href="" class="text-white">{{$post->posttitle." ".'Posted by: '."   ".$post->user->name.''}}</a>
+
+                                <a href="" class="text-white float-right">{{$post->created_at}}</a>
                             </div>
-                            <div class="card-body">
-                      <a href="">{{$post->posttitle." ".'posted by'."   ".$post->user->name.''}}</a>
-                            
-                              <a href="">{{$post->created_at}}</a>   
+
+                            <div class="card-body ">
+
                             </div>
                             @endforeach
+
                         </div>
+                        {!! $posts->links() !!}
                     </div>
                 </div>
+
             </div>
+
         </div>
     </div>
 

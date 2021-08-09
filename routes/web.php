@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\commentcontroller;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,6 +30,7 @@ Route::post('postssss',[HomeController::class,'savepost'])->name('postssss');
 Route::get('postview/{id}',[postController::class,'viewpost'])->name('postview');
 Route::post('/comment/{id}',[commentcontroller::class,'storecomment'])->name('comment');
 Route::get('/tagdetaiils/{id}',[postController::class,'viewtag'])->name('postview');
+Route::get('/notification', [HomeController::class,'sendnotification'])->name('notification');
 
 
 

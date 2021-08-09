@@ -28,11 +28,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-
         $tags=tag::all();
-        $posts=Post::all();
+        $posts=Post::paginate(3);;
         return view('home',compact('tags','posts'));
-     
     }
            
 
@@ -50,12 +48,9 @@ class HomeController extends Controller
            'tag_id'=>implode(" ",$request->tag_id),
            'postimage'=>$filename,
            'users_id'=>Auth::user()->id,
-           'comment_id'=>0
-        
+           'comment_id'=>0  
        ]);
-
         return redirect("home");
-
     }
 
 
@@ -67,7 +62,29 @@ class HomeController extends Controller
     }
         
 
-
-
-
+    public function sendnotification(Request $request){
+        $user=Auth::user()->name;
+        $data =  Post::find($request->posttitle);
+        $details=[
+            'greetings'=>$user,
+            'body'=>$data,
+            'thanks' => 'Thank you for comments!',
+        ];
+        return dd($details);
+    }
+    public function storecomment(Request $request ,$id)
+        {
+    
+            comment::create([
+               'commentname'=>$request->commentname, 
+               'users_id'=>Auth::user()->id,
+                'postid'=>$id    
+           ]);
+    
+            return back();
+    
         }
+           
+        
+        
+    }
