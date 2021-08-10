@@ -8,7 +8,9 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\comment;
 use Illuminate\Support\Facades\Auth;
+use Notification;
 
+use App\Notifications\AlertNotification;
 class HomeController extends Controller
 {
     /**
@@ -42,14 +44,30 @@ class HomeController extends Controller
             $file->move('uploads/post/',$filename);
             // $post->postimage=$filename;
         }
-       Post::create([
+     $response=  Post::create([
            'posttitle'=>$request->posttitle,
            'postdescription'=>$request->postdescription,
            'tag_id'=>implode(" ",$request->tag_id),
            'postimage'=>$filename,
            'users_id'=>Auth::user()->id,
            'comment_id'=>0  
-       ]);
+        ]);
+    //    return $response;
+        
+     
+        
+        $username=Auth::user()->name;
+        $user=Auth::user();
+        // $data =  Post::where('id',$request->id)->first();
+        $title = $response->posttitle;
+        // return $title;
+        $details=[
+            'greetings'=>$username, 
+            'body'=>$title,        
+            'upload' => 'Post uploaded!',
+        ];
+        // return dd($details);
+        Notification::send($user, new AlertNotification($details));
         return redirect("home");
     }
 
@@ -63,27 +81,12 @@ class HomeController extends Controller
         
 
     public function sendnotification(Request $request){
-        $user=Auth::user()->name;
-        $data =  Post::find($request->posttitle);
-        $details=[
-            'greetings'=>$user,
-            'body'=>$data,
-            'thanks' => 'Thank you for comments!',
-        ];
-        return dd($details);
+
+        // $user->notify(new Comment($details));
+
+        return redirect()->route('post', ['id' => $request->id]);
     }
-    public function storecomment(Request $request ,$id)
-        {
-    
-            comment::create([
-               'commentname'=>$request->commentname, 
-               'users_id'=>Auth::user()->id,
-                'postid'=>$id    
-           ]);
-    
-            return back();
-    
-        }
+
            
         
         

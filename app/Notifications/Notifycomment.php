@@ -6,8 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Http\Controllers\HomeController;
-class AlertNotification extends Notification
+
+class Notifycomment extends Notification
 {
     use Queueable;
     private $details;
@@ -43,11 +43,10 @@ class AlertNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->greeting($this->details['greetings'])   
+                    ->greeting($this->details['greetings']) 
                     ->line($this->details['body'])      
-                    ->line($this->details['upload']);
+                    ->line($this->details['thanks']);
     }
-
 
     /**
      * Get the array representation of the notification.
@@ -60,6 +59,7 @@ class AlertNotification extends Notification
         return [
             //
             'data' => $this->details['body']
+
         ];
     }
 }

@@ -26,10 +26,15 @@ class postController extends Controller
 
     public function viewtag($id)
     {
-        $posts=Post::where('tag_id',$id)->get();
+        $posts=Post::where('tag_id',$id)->paginate(2);
         $tags=tag::all();
         return view('home', compact('posts','tags'));
     }
+
+
+
+
+
 }
 
 

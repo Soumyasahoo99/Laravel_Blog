@@ -25,7 +25,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="post" action="{{ route('tagss') }}" enctype="multipart/form-data">
+                                        <form method="post" action="{{ route('tag') }}" enctype="multipart/form-data">
                                             @csrf
                                             <select name="tagsname" class="form-select" aria-label="Default select example">
 
@@ -51,9 +51,12 @@
                     </div>
 
                     <div class="card-body ">
-                        <ul class="list-group ">
+                    <ul class="list-group ">
+                    <li class="list-group-item bg-dark"> <a href="/home" class="text-white">AllPost</a> 
+                      
                             @foreach($tags as $tag)
-                            <li class="list-group-item bg-dark"> <a href="/tagdetaiils/{{$tag->id}}" class="text-white">{{$tag->tagname}}</a> <br></li>
+                            <li class="list-group-item bg-dark"> <a href="/tagdetaiils/{{$tag->id}}" class="text-white">{{$tag->tagname}}</a> 
+                          <a href="/delete/{{$tag->id}}"> <button type="button" class="btn-close float-right "  aria-label="Close"></button><br></a> </li>
                             @endforeach
                         </ul>
 
@@ -131,7 +134,7 @@
                         <div class="card-body bg-dark ">
                             @foreach($posts as $post)
                             <div class="text-center">
-                                <a href="postview/{{$post->id}}"> <img src="{{asset('uploads/post/'.$post->postimage)}}" class="card-img-top" alt="..."> </a>
+                                <a href="/postview/{{$post->id}}"> <img src="{{asset('uploads/post/'.$post->postimage)}}" class="card-img-top" alt="..."> </a>
                                 <a href="" class="text-white">{{$post->posttitle." ".'Posted by: '."   ".$post->user->name.''}}</a>
 
                                 <a href="" class="text-white float-right">{{$post->created_at}}</a>
