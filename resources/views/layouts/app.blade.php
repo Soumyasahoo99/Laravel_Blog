@@ -56,17 +56,21 @@
                         @else
                         <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class=" " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                                    <i class="fa fa-bell" style="margin-top: 12px;margin-right: 1pc;"> <span class="badge  bel">{{auth()->user()->notifications->count()}}</span></i>
+                                    <i class="fa fa-bell" style="margin-top: 12px;margin-right: 1pc;"> </i>
+                                    @if(auth()->user()->unreadnotifications->count())
+                                    <span class="badge  bel">{{auth()->user()->unreadnotifications->count()}}</span>
+                                    @endif
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    
                                     <ul>
-                                    @foreach(auth()->user()->notifications as $notification)
-                                      <li style="list-style-type:none;"><a class="dropdown-item" href="/postview/{{$notification->notifiable_id}}"">New Notifications <b class="text-primary">{{$notification->data['data']}}</b></a></li>                                     
+                                    <li style="list-style-type:none;"> <a href="{{url('Markasread')}}" style="color:darkgreen">Mark all as Read</a></li>
+
+                                    @foreach(auth()->user()->unreadNotifications as $notification)
+                                      <li style="list-style-type:none; background-color:lightgray;"><a class="dropdown-item" href="/postview/{{$notification->notifiable_id}}"">New Notifications <b class="text-primary">{{$notification->data['data']}}</b></a></li>                                     
                                     @endforeach
                                     </ul>
-                                    
+                       
                                     
                                 </div>
                             </li>

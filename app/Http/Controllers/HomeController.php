@@ -87,7 +87,12 @@ class HomeController extends Controller
         return redirect()->route('post', ['id' => $request->id]);
     }
 
-           
+    public function marknotification(){
+
+                auth()->user()->unreadNotifications->markAsRead();
+                return redirect()->back();
+    }
+      
         
         
     }
