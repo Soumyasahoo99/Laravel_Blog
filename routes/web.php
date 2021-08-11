@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\commentcontroller;
-
+use App\Http\Controllers\StripeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,7 +24,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('tag',[TagController::class,'storetag'])->name('tag');//->middleware('CheckTag');
 Route::get('/delete/{id}',[TagController::class,'destroy'])->middleware('CheckTag');
 Route::post('postssss',[HomeController::class,'savepost'])->name('postssss');
@@ -32,9 +32,10 @@ Route::get('/postview/{id}',[postController::class,'viewpost']);//->name('postvi
 Route::post('/comment/{id}',[commentcontroller::class,'storecomment'])->name('comment');
 Route::get('/tagdetaiils/{id}',[postController::class,'viewtag']);//->name('postview');
 Route::get('/notification', [HomeController::class,'sendnotification'])->name('notification');
+Route::get('/Markasread', [HomeController::class,'marknotification']);
 
 
 
 
-
-
+Route::get('stripe', [StripeController::class, 'stripe'])->name('stripe');
+// Route::post('payment', [StripeController::class, 'stripepayment  '])->name('payment');
