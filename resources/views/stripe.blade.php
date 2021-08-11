@@ -17,6 +17,14 @@
 </head>
 
 <body>
+    {{-- @if (Session::has('success'))
+    <div class="alert alert-success text-center">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <p>{{ Session::get('success') }}</p>
+    </div>
+@endif --}}
+    <form action="{{url('payment')}}" method="POST">
+        @csrf
     <!--    <h3>Subscribe</h3> -->
         <div class="container mt-4 bg-dark">
             <div class="pricing card-deck flex-column  flex-md-row my-3">
@@ -78,6 +86,7 @@
                         </ul>
                         <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_GryUHqXe48kgNc75J2BovmeN" data-amount="1100" data-name="Webcasts" data-description="Subscribe to Awesome Blogs" data-image="https://stripe.com/img/documentation/checkout/marketplace.png" data-label="Subscribe Now" data-email="{{ auth()->check()?auth()->user()->email: null}}" data-panel-label="1 year" data-locale="auto">
                         </script>
+                             </form>
                     </div>
                 </div>
             </div>
