@@ -24,7 +24,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->middleware('paymentcheck');
 Route::post('tag', [TagController::class, 'storetag'])->name('tag'); //->middleware('CheckTag');
 Route::get('/delete/{id}', [TagController::class, 'destroy'])->middleware('CheckTag');
 Route::post('postssss', [HomeController::class, 'savepost'])->name('postssss');
@@ -34,5 +34,10 @@ Route::get('/tagdetaiils/{id}', [postController::class, 'viewtag']); //->name('p
 Route::get('/notification', [HomeController::class, 'sendnotification'])->name('notification');
 Route::get('/Markasread', [HomeController::class, 'marknotification']);
 
+Route::get('/paymentplan', function () {
+    return view('planstripe');
+});
 Route::get('stripe', [StripeController::class, 'stripe'])->name('stripe');
 Route::post('payment', [StripeController::class, 'stripepayment'])->name('payment');
+
+Route::get('/cancell', [StripeController::class, 'cancellpayment']);
